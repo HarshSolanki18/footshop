@@ -11,7 +11,7 @@ import {
   USER_DETAILS_SUCCESS,
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_REQUEST,
-  USER_UPDATE_PROFILE_FAIL
+  USER_UPDATE_PROFILE_FAIL, USER_EMAIL_RESET_REQUEST, USER_EMAIL_RESET_SUCCESS, USER_EMAIL_RESET_FAIL, USER_PASSWORD_RESET_REQUEST, USER_PASSWORD_RESET_SUCCESS, USER_PASSWORD_RESET_FAIL
 } from "../reducers/userConstants";
 import axios from "axios";
 
@@ -136,6 +136,60 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     dispatch({
       type: USER_UPDATE_PROFILE_FAIL,
       payload: message,
+    });
+  }
+};
+
+
+export const resetMail = (email) => async (dispatch) => {
+  try {
+    dispatch({ type: USER_EMAIL_RESET_REQUEST });
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axios.post(
+      "/api/users/resetmail",
+      {email},
+      config
+    );
+    dispatch({ type: USER_EMAIL_RESET_SUCCESS, payload: data });
+    
+    
+  } catch (error) {
+    dispatch({
+      type: USER_EMAIL_RESET_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const resetPassword =    (password,resetToken) => async (dispatch) => {
+  try {
+    dispatch({ type: USER_PASSWORD_RESET_REQUEST });
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axios.put(
+      "/api/users/resetpassword",
+      {password,resetToken },
+      config
+    );
+    dispatch({ type: USER_PASSWORD_RESET_SUCCESS, payload: data });
+    
+  } catch (error) {
+    dispatch({
+      type: USER_PASSWORD_RESET_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };

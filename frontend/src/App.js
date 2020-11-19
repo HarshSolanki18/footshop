@@ -12,6 +12,7 @@ import RegisterScreen from "./components/Screens/RegisterScreen";
 import ProfileScreen from "./components/Screens/ProfileScreen";
 import ShippingScreen from "./components/Screens/ShippingScreen";
 import ResetMailScreen from "./components/Screens/ResetMailScreen";
+import ResetPasswordScreen from "./components/Screens/ResetPasswordScreen";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path='/profile' component={ProfileScreen}/>
           <Route path='/shipping' component={ShippingScreen}/>
           <Route path='/resetmail' component={ResetMailScreen}/>
+          <Route path='/resetpassword/:token' component={ResetPasswordScreen}/>
         </Container>
       </main>
       <Footer />
