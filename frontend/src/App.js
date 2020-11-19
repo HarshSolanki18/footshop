@@ -11,6 +11,7 @@ import LoginScreen from "./components/Screens/LoginScreen";
 import RegisterScreen from "./components/Screens/RegisterScreen";
 import ProfileScreen from "./components/Screens/ProfileScreen";
 import ShippingScreen from "./components/Screens/ShippingScreen";
+import ResetMailScreen from "./components/Screens/ResetMailScreen";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path='/register' component={RegisterScreen} />
           <Route path='/profile' component={ProfileScreen}/>
           <Route path='/shipping' component={ShippingScreen}/>
+          <Route path='/resetmail' component={ResetMailScreen}/>
         </Container>
       </main>
       <Footer />

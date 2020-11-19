@@ -31,7 +31,11 @@ const RegisterScreen = ({location,history}) => {
       e.preventDefault()
       if(password!==confirmPassword){
           setMessage('Passwords do not match')
-      }else{
+      }
+      else if(password.length<8){
+          setMessage('Password length should be greater than 8 characters')
+      }
+      else{
         dispatch(register(name,email,password))
       }
       
@@ -51,6 +55,7 @@ const RegisterScreen = ({location,history}) => {
             value={name}
             onChange={(e) => setName(e.target.value)}
           ></Form.Control>
+          
         </Form.Group>
         <Form.Group controlId='email'>
           <Form.Label>Email Address</Form.Label>
@@ -70,6 +75,7 @@ const RegisterScreen = ({location,history}) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
+          <p color={"grey"} style={{fontWeight:"revert",fontSize:"0.8rem"}}>password should be greater than 8 characters</p>
         </Form.Group>
         <Form.Group controlId='confirmPassword'>
           <Form.Label>Confirm Password</Form.Label>

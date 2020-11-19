@@ -66,6 +66,13 @@ const LoginScreen = ({location,history}) => {
           </Link>
         </Col>
       </Row>
+      <Row >
+        <Col>
+         <Link to={redirect ? `/resetmail?redirect=${redirect}` : '/resetmail'}>
+            Forgot password
+          </Link>
+        </Col>
+      </Row>
     </FormContainer>
     )
 }
