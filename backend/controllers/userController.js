@@ -2,6 +2,7 @@ import User from "../models/userModel.js";
 import asyncHandler from "express-async-handler";
 import { generateToken,generateResetToken } from "../utils/generateToken.js";
 import nodemailer from 'nodemailer';
+import jwt from 'jsonwebtoken';
 
 //auth user and get token
 // POST /api/users/login
@@ -147,3 +148,37 @@ export const forgotPasswordMail=asyncHandler(async(req,res)=>{
   
   
 })
+
+// @desc    update user password 
+// @route   PUT /api/users/resetpassword
+// @access  Private
+export const updateUserPassword = asyncHandler(async (req, res) => {
+  let token=req.body.resetToken
+  let decoded
+  if(token){
+  decoded = jwt.verify(token, process.env.JWT_RESET_SECRET)
+  }else{
+    res.status(400)
+    throw new Error('not authorized to change the password,no token is present')
+  }
+  const user = await User.findById(decoded.id)
+
+  if (user) {
+    user.name=user.name
+    user.email=user.email
+    if(req.body.password){
+      user.password=req.body.password
+    }
+    const updatedUser=await user.save()
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+      token: generateToken(updatedUser._id),
+    });
+  } else {
+    res.status(404)
+    throw new Error('User not found')
+  }
+})  
