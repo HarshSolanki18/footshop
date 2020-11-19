@@ -5,3 +5,10 @@ export const generateToken=(id)=>{
         expiresIn:"2d"
     });
 }
+
+export const generateResetToken=(id)=>{
+    return jwt.sign({id},process.env.JWT_RESET_SECRET,{
+        expiresIn:"1h"
+    });
+}
+

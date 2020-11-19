@@ -1,6 +1,7 @@
 import User from "../models/userModel.js";
 import asyncHandler from "express-async-handler";
-import { generateToken } from "../utils/generateToken.js";
+import { generateToken,generateResetToken } from "../utils/generateToken.js";
+import nodemailer from 'nodemailer';
 
 //auth user and get token
 // POST /api/users/login
@@ -104,3 +105,45 @@ export const registerUser = asyncHandler(async (req, res) => {
     res.json('invalid user dqta')
   }
 });
+
+// @desc    forgot password profile
+// @route   POST /api/users/forgot
+// @access  Public
+
+export const forgotPasswordMail=asyncHandler(async(req,res)=>{
+  const email=req.body.email
+  const user = await User.findOne({ email });
+  if(!user){
+    res.status(400);
+    throw new Error('No user with that email');  
+  }
+
+  let transporter = nodemailer.createTransport({
+    service:"gmail",
+    auth: {
+      user: process.env.MAIL_ID, // generated ethereal user
+      pass: process.env.MAIL_PASSWORD, // generated ethereal password
+    },
+  });
+
+  const token=generateResetToken(user._id)
+  
+  let info = await transporter.sendMail({
+    from: 'hsolanki1884@gmail.com', // sender address
+    to: user.email, // list of receivers
+    subject: "FOOTSHOP RESET PASSWORD", // Subject line
+    text: `Here is the link to reset your password it will be valid only for 1 hour  http://localhost:3000/resetpassword/${token}`, // plain text body
+    
+  });
+  if(info){
+    res.json({
+      message:"email has been sent to your mail id",
+      info
+    })
+  }else{
+    res.status(500);
+    throw new Error('server error could not send your reset mail');  
+  }
+  
+  
+})
