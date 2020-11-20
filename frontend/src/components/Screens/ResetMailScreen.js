@@ -12,7 +12,7 @@ const ResetMailScreen = ({ history, location }) => {
   
 
   const userResetEmail = useSelector((state) => state.userResetEmail);
-  const { error, loading, info ,message} = userResetEmail;
+  const { error, loading,message} = userResetEmail;
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   const redirect = location.search ? location.search.split("=")[1] : "/";

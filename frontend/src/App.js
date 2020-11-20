@@ -13,6 +13,9 @@ import ProfileScreen from "./components/Screens/ProfileScreen";
 import ShippingScreen from "./components/Screens/ShippingScreen";
 import ResetMailScreen from "./components/Screens/ResetMailScreen";
 import ResetPasswordScreen from "./components/Screens/ResetPasswordScreen";
+import PaymentScreen from "./components/Screens/PaymentScreen";
+import PlaceOrderScreen from "./components/Screens/PlaceOrderScreen";
+import OrderScreen from "./components/Screens/OrderScreen";
 
 function App() {
   return (
@@ -22,11 +25,14 @@ function App() {
         <Container>
           <Route path="/" exact component={HomeScreen} />
           <Route path="/product/:id" component={ProductScreen} />
+          <Route path='/order/:id' component={OrderScreen} />
           <Route path='/cart/:id?'component={CartScreen}/>
           <Route path='/login' component={LoginScreen}/>
           <Route path='/register' component={RegisterScreen} />
           <Route path='/profile' component={ProfileScreen}/>
           <Route path='/shipping' component={ShippingScreen}/>
+          <Route path='/payment' component={PaymentScreen}/>
+          <Route path='/placeorder' component={PlaceOrderScreen}/>
           <Route path='/resetmail' component={ResetMailScreen}/>
           <Route path='/resetpassword/:token' component={ResetPasswordScreen}/>
         </Container>

@@ -19,6 +19,7 @@ import {
   USER_PASSWORD_RESET_REQUEST,
   USER_PASSWORD_RESET_SUCCESS,
   USER_PASSWORD_RESET_FAIL,
+  USER_DETAILS_RESET
 } from "./userConstants";
 export const userLoginReducer = (state = {}, action) => {
   switch (action.type) {
@@ -75,6 +76,8 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
         loading: false,
         error: action.payload,
       };
+      case USER_DETAILS_RESET:
+        return { user: {} }  
     default:
       return state;
   }
