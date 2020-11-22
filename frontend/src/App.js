@@ -16,6 +16,8 @@ import ResetPasswordScreen from "./components/Screens/ResetPasswordScreen";
 import PaymentScreen from "./components/Screens/PaymentScreen";
 import PlaceOrderScreen from "./components/Screens/PlaceOrderScreen";
 import OrderScreen from "./components/Screens/OrderScreen";
+import UserListScreen from "./components/Screens/UserListScreen";
+import UserEditScreen from "./components/Screens/UserEditScreen";
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
           <Route path="/product/:id" component={ProductScreen} />
           <Route path='/order/:id' component={OrderScreen} />
           <Route path='/cart/:id?'component={CartScreen}/>
+          <Route path='/admin/userlist' component={UserListScreen} />
           <Route path='/login' component={LoginScreen}/>
           <Route path='/register' component={RegisterScreen} />
           <Route path='/profile' component={ProfileScreen}/>
@@ -35,6 +38,7 @@ function App() {
           <Route path='/placeorder' component={PlaceOrderScreen}/>
           <Route path='/resetmail' component={ResetMailScreen}/>
           <Route path='/resetpassword/:token' component={ResetPasswordScreen}/>
+          <Route path='/admin/user/:id/edit' component={UserEditScreen} />
         </Container>
       </main>
       <Footer />
