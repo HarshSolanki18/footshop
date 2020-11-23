@@ -18,6 +18,7 @@ import Message from "../Message";
 const ProductScreen = ({history, match }) => {
   const dispatch = useDispatch();
   const [qty, setQty] = useState(1);
+  const [rating, setRating] = useState(0)
   const productDetails = useSelector((state) => state.productDetails);
   const { product, error, loading } = productDetails;
   useEffect(() => {
@@ -39,7 +40,7 @@ const ProductScreen = ({history, match }) => {
       ) : (
         <Row>
           <Col md={6}>
-            <Image src={product.image} alt={product.name} fluid />
+            <Image src="uploads/image-1606119651314.png" alt={product.name} fluid />
           </Col>
           <Col md={3}>
             <ListGroup variant="flush">

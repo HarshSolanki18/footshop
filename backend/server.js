@@ -7,6 +7,8 @@ import productRoutes from "./routes/productRoutes.js";
 import userRoutes from './routes/userRoutes.js';
 import cors from 'cors';
 import orderRoutes from './routes/orderRoutes.js';
+import uploadRoutes from './routes/uploadRoutes.js';
+import path from 'path';
 
 dotenv.config();
 
@@ -24,6 +26,7 @@ app.get("/", (req, res) => {
 app.use('/api/orders', orderRoutes)
 app.use("/api/products", productRoutes);
 app.use("/api/users",userRoutes);
+app.use('/api/upload', uploadRoutes)
 
 app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
@@ -32,6 +35,9 @@ app.get('/api/config/paypal', (req, res) =>
 app.use(notFound)
 app.use(errorHandler)
 
+//const __dirname = path.resolve()
+//app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
+app.use("/uploads", express.static("uploads"))
 const PORT = process.env.PORT || 5000;
 
 app.listen(
